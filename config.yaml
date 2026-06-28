@@ -1,0 +1,40 @@
+# Causal Task Queue Configuration File
+
+server:
+  port: 3000
+  host: "0.0.0.0"
+
+database:
+  driver: "sqlite"
+  path: "queue.db"
+  wal_mode: true
+
+workers:
+  pool_size: 4
+  heartbeat_interval_seconds: 2
+  max_backpressure_saturation: 0.8  # Throttle producers when worker pool is >80% busy
+
+observability:
+  metrics_enabled: true
+  prometheus_path: "/metrics"
+  anomaly_multiplier: 2.0  # Flag as anomaly if execution > 2x predicted duration
+
+# Dynamic prioritization rules loaded on startup
+rules:
+  - id: "rule-1"
+    context: "payment_failed"
+    type: "boost"
+    value: 500.0  # Absolute boost for failed payments
+    target_class: "all"
+    
+  - id: "rule-2"
+    context: "user_onboarding"
+    type: "context_outranks_age"
+    value: 30.0   # User onboarding outranks low priority older than 30s
+    target_class: "report_generation"
+    
+  - id: "rule-3"
+    context: "report_generation"
+    type: "starvation_boost"
+    value: 0.5    # Increase priority score by 0.5 each second to avoid starvation
+    target_class: "all"

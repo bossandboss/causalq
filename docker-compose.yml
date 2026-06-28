@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  causal-queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - queue-data:/app/data
+    environment:
+      - PORT=3000
+      - DB_PATH=/app/data/queue.db
+      - WORKERS=4
+    restart: unless-stopped
+
+volumes:
+  queue-data:
