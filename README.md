@@ -102,3 +102,15 @@ curl -X POST http://localhost:3000/enqueue \
 ```bash
 curl http://localhost:3000/metrics
 ```
+
+## License
+
+## ⚠️ Commercial & Licensing Notice
+
+**causalq** is published under the **Business Source License 1.1 (BUSL-1.1)**.
+* **Non-Commercial & Evaluation:** 100% Free to use, modify, and test.
+* **Commercial Production Use:** Strictly prohibited for production deployment (mobile apps, SaaS, embedded hardware) without a commercial license.
+
+On **July 1, 2029**, this version of the software will automatically transition to the **AGPL-3.0** license.
+
+*To obtain a commercial production license, enterprise support, or custom hardware tuning (ARM NEON/NPU), contact:* **[kechaouwajdi@gmail.com]**
